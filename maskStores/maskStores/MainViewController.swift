@@ -10,6 +10,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    var storesData: [StoresData] = []
+    
     private let mainListTableView: UITableView = {
         var tableView: UITableView = UITableView()
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
@@ -19,12 +21,16 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .white
+        
+        self.title = "공적 마스크 판매정보"
         
         mainListTableView.delegate = self
         mainListTableView.dataSource = self
         
         setUpMainListTableViewAndConstraints()
+        
+//        self.mainListTableView.rowHeight = UITableView.automaticDimension
     }
     
     private func setUpMainListTableViewAndConstraints() {
@@ -47,7 +53,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.storesData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,7 +65,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 fatalError()
                 return UITableViewCell()
         }
+        
+        let stores: StoresData = self.storesData[indexPath.row]
+        
+        cell.nameLabel.text = stores.name
+        cell.addressLabel.text = stores.addr
+        cell.typeLabel.text = stores.convertType
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
     
     

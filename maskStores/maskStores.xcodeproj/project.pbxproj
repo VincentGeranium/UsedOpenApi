@@ -13,6 +13,7 @@
 		20B4A4EF249BAD6900B1F651 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20B4A4EE249BAD6900B1F651 /* Assets.xcassets */; };
 		20B4A4F2249BAD6900B1F651 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20B4A4F0249BAD6900B1F651 /* LaunchScreen.storyboard */; };
 		20B4A4FA249BAEDE00B1F651 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4A4F9249BAEDE00B1F651 /* MainTableViewCell.swift */; };
+		20B4A4FC249BC4E700B1F651 /* Stores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4A4FB249BC4E700B1F651 /* Stores.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		20B4A4F1249BAD6900B1F651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		20B4A4F3249BAD6900B1F651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20B4A4F9249BAEDE00B1F651 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		20B4A4FB249BC4E700B1F651 /* Stores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stores.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				20B4A4E5249BAD6800B1F651 /* AppDelegate.swift */,
 				20B4A4E7249BAD6800B1F651 /* SceneDelegate.swift */,
 				20B4A4E9249BAD6800B1F651 /* MainViewController.swift */,
+				20B4A4FB249BC4E700B1F651 /* Stores.swift */,
 				20B4A4F9249BAEDE00B1F651 /* MainTableViewCell.swift */,
 				20B4A4EE249BAD6900B1F651 /* Assets.xcassets */,
 				20B4A4F0249BAD6900B1F651 /* LaunchScreen.storyboard */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20B4A4FC249BC4E700B1F651 /* Stores.swift in Sources */,
 				20B4A4EA249BAD6800B1F651 /* MainViewController.swift in Sources */,
 				20B4A4E6249BAD6800B1F651 /* AppDelegate.swift in Sources */,
 				20B4A4FA249BAEDE00B1F651 /* MainTableViewCell.swift in Sources */,

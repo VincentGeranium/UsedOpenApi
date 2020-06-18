@@ -15,29 +15,35 @@ class MainTableViewCell: UITableViewCell {
     lazy var nameLabel: UILabel = {
         var name: UILabel = UILabel()
         name.backgroundColor = .systemOrange
-        name.text = "Name Test String"
+        name.font = UIFont.systemFont(ofSize: 17)
+        
         return name
     }()
     
     lazy var typeLabel: UILabel = {
         var type: UILabel = UILabel()
         type.backgroundColor = .systemGray
-        type.text = "Type Test String"
+        type.font = UIFont.systemFont(ofSize: 17)
+        
         return type
     }()
     
     lazy var addressLabel: UILabel = {
         var address: UILabel = UILabel()
         address.backgroundColor = .systemBlue
-        address.text = "Address Test String"
+        address.font = UIFont.systemFont(ofSize: 17)
+        
         return address
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.accessoryType = .disclosureIndicator
+        
         setUpNameLabelAndConstraint()
         setUpTypeLabelAndConstraints()
-        
+        setUpAddressLabelAndConstraints()
         
         
     }
@@ -71,7 +77,29 @@ class MainTableViewCell: UITableViewCell {
     }
     
     private func setUpTypeLabelAndConstraints() {
+        typeLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        contentView.addSubview(typeLabel)
+        
+        NSLayoutConstraint.activate([
+            typeLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            typeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+            typeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            typeLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5),
+        ])
+    }
+    
+    private func setUpAddressLabelAndConstraints() {
+        addressLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(addressLabel)
+        
+        NSLayoutConstraint.activate([
+            addressLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            addressLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            addressLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            addressLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
     }
 
 }
