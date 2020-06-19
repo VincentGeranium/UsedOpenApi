@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct APIResponse: Codable {
-    let storeInfos: [StoresData]
-}
+//struct APIResponse: Codable {
+//    let storeInfos: [StoresData]
+//}
 
-struct StoresData: Codable {
-    let addr: String
-    let type: String
-    let name: String
+struct StoresDataVO {
+    var addr: String?
+    var type: String?
+    var name: String?
     
     var convertType: String {
         if self.type == "01" {
