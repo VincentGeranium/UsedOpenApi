@@ -120,11 +120,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
         }
         
-        let stores: StoresDataVO = self.storesDataList[indexPath.row]
+        // 주어진 행에 맞는 데이터 소스를 읽어오는 코드.
+        let row = self.storesDataList[indexPath.row]
         
-        cell.nameLabel.text = stores.name
-        cell.addressLabel.text = stores.addr
-        cell.typeLabel.text = stores.convertType
+        // 데이터 소스에 저장된 값을 각 셀에 할당.
+        cell.nameLabel.text = row.name
+        cell.addressLabel.text = row.addr
+        cell.typeLabel.text = row.convertType
         
         return cell
     }

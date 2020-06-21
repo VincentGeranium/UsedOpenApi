@@ -8,10 +8,6 @@
 
 import Foundation
 
-//struct APIResponse: Codable {
-//    let storeInfos: [StoresData]
-//}
-
 struct StoresDataVO {
     var addr: String?
     var type: String?
