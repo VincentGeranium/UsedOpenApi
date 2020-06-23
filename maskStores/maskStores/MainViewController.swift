@@ -13,6 +13,12 @@ class MainViewController: UIViewController {
     // 현재까지 읽어온 테이터의 페이지 정보
     var page = 1
     
+    // 모든 데이터의 개수
+    let totalCount = 27019
+    
+    // 모든 페이지의 개수
+    let totalPage = 55
+    
     lazy var storesDataList: [StoresDataVO] = {
         var datalist = [StoresDataVO]()
         return datalist
@@ -31,25 +37,32 @@ class MainViewController: UIViewController {
         return viewForBtn
     }()
     
-    lazy var moreButton: UIButton = {
-        var moreButton: UIButton = UIButton()
-        moreButton.setTitle("더보기", for: .normal)
-        moreButton.addTarget(self,
-                             action: #selector(touchUpMoreButton(_:)),
-                             for: .touchUpInside)
-        return moreButton
+    private let activityIndicators: UIActivityIndicatorView = {
+        var indicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+        indicatorView.style = UIActivityIndicatorView.Style.medium
+        indicatorView.hidesWhenStopped = false
+        return indicatorView
     }()
     
-    @objc private func touchUpMoreButton(_ sender: UIButton) {
-        // 현재 패이지 값에 1을 추가
-        self.page += 1
-        
-        // 공적 마스크 API를 호출하는 메소드.
-        callCorona19MasksAPI()
-        
-        // 데이터를 다시 읽어오도록 테이블 뷰를 갱신.
-        self.mainListTableView.reloadData()
-    }
+//    lazy var moreButton: UIButton = {
+//        var moreButton: UIButton = UIButton()
+//        moreButton.setTitle("더보기", for: .normal)
+//        moreButton.addTarget(self,
+//                             action: #selector(touchUpMoreButton(_:)),
+//                             for: .touchUpInside)
+//        return moreButton
+//    }()
+//
+//    @objc private func touchUpMoreButton(_ sender: UIButton) {
+//        // 현재 패이지 값에 1을 추가
+//        self.page += 1
+//
+//        // 공적 마스크 API를 호출하는 메소드.
+//        callCorona19MasksAPI()
+//
+//        // 데이터를 다시 읽어오도록 테이블 뷰를 갱신.
+//        self.mainListTableView.reloadData()
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +75,8 @@ class MainViewController: UIViewController {
         
         setUpViewForMoreButtonAndConstraints()
         setUpMainListTableViewAndConstraints()
-        setUpMoreButtonAndConstraints()
+        setUpIndicatorAndConstraints()
+//        setUpMoreButtonAndConstraints()
         
         // 셀 높이 동적으로 조절
 //        self.mainListTableView.rowHeight = UITableView.automaticDimension
@@ -136,6 +150,19 @@ class MainViewController: UIViewController {
         ])
       }
     
+    private func setUpIndicatorAndConstraints() {
+        let guide = self.viewForMoreButton.safeAreaLayoutGuide
+        
+        activityIndicators.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.viewForMoreButton.addSubview(activityIndicators)
+        
+        NSLayoutConstraint.activate([
+            activityIndicators.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+            activityIndicators.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+        ])
+    }
+    
     private func setUpMainListTableViewAndConstraints() {
         let guide = self.view.safeAreaLayoutGuide
         
@@ -151,18 +178,18 @@ class MainViewController: UIViewController {
         ])
     }
     
-    private func setUpMoreButtonAndConstraints() {
-        let guide = self.viewForMoreButton.safeAreaLayoutGuide
-        
-        moreButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.viewForMoreButton.addSubview(moreButton)
-        
-        NSLayoutConstraint.activate([
-            moreButton.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
-            moreButton.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
-        ])
-    }
+//    private func setUpMoreButtonAndConstraints() {
+//        let guide = self.viewForMoreButton.safeAreaLayoutGuide
+//
+//        moreButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        self.viewForMoreButton.addSubview(moreButton)
+//
+//        NSLayoutConstraint.activate([
+//            moreButton.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+//            moreButton.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+//        ])
+//    }
 
     
 }
@@ -197,6 +224,23 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return 70
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == storesDataList.count - 1 {
+            if self.page < totalPage {
+                self.page += 1
+                
+                callCorona19MasksAPI()
+                print("callCorona19MasksAPI")
+                
+                print(self.page)
+                
+                self.perform(#selector(loadData), with: nil, afterDelay: 1.0)
+            }
+        }
+    }
+    @objc func loadData() {
+        mainListTableView.reloadData()
+    }
     
 }
 
