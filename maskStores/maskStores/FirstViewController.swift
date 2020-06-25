@@ -13,13 +13,15 @@ class FirstViewController: UIViewController {
     private let searchViewController: UISearchController = {
         var searchVC: UISearchController = UISearchController(searchResultsController: nil)
         searchVC.obscuresBackgroundDuringPresentation = false
+        searchVC.searchBar.backgroundColor = .systemPink
         searchVC.searchBar.placeholder = "이름 혹은 주소를 입력하세요."
         
         return searchVC
     }()
     
-    private let resultView: UIView = {
-        var resultView: UIView = UIView()
+    private let resultView: UILabel = {
+        var resultView: UILabel = UILabel()
+//        resultView.text = sear
         resultView.backgroundColor = .systemOrange
         return resultView
     }()
@@ -27,22 +29,32 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemOrange
+        view.backgroundColor = .white
         searchViewController.searchResultsUpdater = self
         // 기본적으로 UISearchController는 표시된 뷰를 흐리게(obscure)만든다, true와 default는 흐리게, false는 흐리지 않게.
 //        searchViewController.obscuresBackgroundDuringPresentation = false
 //        searchViewController.searchBar.placeholder = "이름 혹은 주소를 입력하세요."
         navigationItem.searchController = searchViewController
         self.definesPresentationContext = true
+        self.title = "검색"
         setUpAndConstraintsResultView()
     }
     
     private func setUpAndConstraintsResultView() {
         let guide = self.view.safeAreaLayoutGuide
+        let width = self.view.frame.width
         
         resultView.translatesAutoresizingMaskIntoConstraints = false
         
+        self.view.addSubview(resultView)
         
+        NSLayoutConstraint.activate([
+            resultView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+            resultView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+            resultView.widthAnchor.constraint(equalToConstant: width - 40),
+            resultView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 30),
+            resultView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -30),
+        ])
     }
     
     private func searchBarIsEmpty() -> Bool {
