@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTableViewCell: UITableViewCell {
+class ListTableViewCell: UITableViewCell {
     
     static let reuseIdentifier: String = "MainTableViewCell"
     

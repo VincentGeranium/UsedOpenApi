@@ -9,6 +9,7 @@
 import UIKit
 
 class ListViewController: UIViewController {
+    let tag = 1
     
     // 현재까지 읽어온 테이터의 페이지 정보
     var page = 1
@@ -24,9 +25,9 @@ class ListViewController: UIViewController {
         return datalist
     }()
     
-    private let mainListTableView: UITableView = {
+    private let listTableView: UITableView = {
         var tableView: UITableView = UITableView()
-        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
+        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
         
         return tableView
     }()
@@ -68,10 +69,10 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        self.title = "공적 마스크 판매정보"
+        self.title = "공적 마스크 판매정보 목록"
         
-        mainListTableView.delegate = self
-        mainListTableView.dataSource = self
+        listTableView.delegate = self
+        listTableView.dataSource = self
         
         setUpViewForMoreButtonAndConstraints()
         setUpMainListTableViewAndConstraints()
@@ -166,15 +167,15 @@ class ListViewController: UIViewController {
     private func setUpMainListTableViewAndConstraints() {
         let guide = self.view.safeAreaLayoutGuide
         
-        mainListTableView.translatesAutoresizingMaskIntoConstraints = false
+        listTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(mainListTableView)
+        self.view.addSubview(listTableView)
         
         NSLayoutConstraint.activate([
-            mainListTableView.topAnchor.constraint(equalTo: guide.topAnchor),
-            mainListTableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            mainListTableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            mainListTableView.bottomAnchor.constraint(equalTo: viewForMoreButton.topAnchor),
+            listTableView.topAnchor.constraint(equalTo: guide.topAnchor),
+            listTableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            listTableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            listTableView.bottomAnchor.constraint(equalTo: viewForMoreButton.topAnchor),
         ])
     }
     
@@ -201,8 +202,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: MainTableViewCell.reuseIdentifier,
-            for: indexPath) as? MainTableViewCell
+            withIdentifier: ListTableViewCell.reuseIdentifier,
+            for: indexPath) as? ListTableViewCell
             else {
                 print("Error : Can't get Cell")
                 fatalError()
@@ -239,7 +240,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     @objc func loadData() {
-        mainListTableView.reloadData()
+        listTableView.reloadData()
     }
     
 }
