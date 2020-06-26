@@ -20,32 +20,19 @@ class MainTapBarViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
         setUpTab()
     }
     
     private func setUpTab() {
         self.view.addSubview(tab.view)
 
-        let searchTabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-        let listTabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        let searchTabBarItem = UITabBarItem(title: "검색", image: UIImage.init(named: "search.png"), tag: 0)
+        let listTabBarItem = UITabBarItem(title: "목록", image: UIImage.init(named: "list.png"), tag: 1)
         
         searchNavi.tabBarItem = searchTabBarItem
         listNavi.tabBarItem  = listTabBarItem
         
         tab.viewControllers = [searchNavi, listNavi]
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

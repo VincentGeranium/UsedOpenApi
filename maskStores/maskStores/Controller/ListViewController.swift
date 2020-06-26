@@ -69,7 +69,7 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        self.title = "공적 마스크 판매정보 목록"
+        self.title = "목록"
         
         listTableView.delegate = self
         listTableView.dataSource = self
