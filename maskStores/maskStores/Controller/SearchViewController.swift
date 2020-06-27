@@ -54,9 +54,9 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-//        getAllData(allStoresData: storesData)
-        
+    
+        getAllData()
+        storesData = allStoresData
         
         
         self.searchController.searchResultsUpdater = self
@@ -69,7 +69,7 @@ class SearchViewController: UIViewController {
         
         self.title = "검색"
         
-        callCorona19MasksAPI()
+//        callCorona19MasksAPI()
         setUpAndConstraintsCountView()
         setUpAndConstraintsCountLabel()
         setUpAndConstraintsSearchResultTableView()
@@ -151,7 +151,7 @@ class SearchViewController: UIViewController {
         NSLayoutConstraint.activate([
             countLabel.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
             countLabel.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
-            countLabel.widthAnchor.constraint(equalToConstant: 50),
+            countLabel.widthAnchor.constraint(equalToConstant: 70),
         ])
     }
     
