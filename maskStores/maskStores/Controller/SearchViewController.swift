@@ -12,6 +12,8 @@ class SearchViewController: UIViewController {
     let tag = 0
     // 현재까지 읽어온 테이터의 페이지 정보
     var page = 1
+    // 총 페이지 정보
+    let totalPage = 55
     
     //    private var searchData =
     lazy var storesData: [StoresDataVO] = []
@@ -52,6 +54,10 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+//        getAllData(allStoresData: storesData)
+        
+        
         
         self.searchController.searchResultsUpdater = self
         self.searchResultTableView.delegate = self
@@ -191,6 +197,7 @@ extension SearchViewController: UISearchResultsUpdating, UITableViewDelegate, UI
             return filteredNameOrAddress.count
         }
         countLabel.text = "\(storesData.count)"
+//        return filteredNameOrAddress.count
         return storesData.count
     }
     

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		204C764D24A4B3FE0094953B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204C764C24A4B3FE0094953B /* SearchViewController.swift */; };
+		204D1DAF24A77DBE00AC2944 /* getAllData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204D1DAE24A77DBE00AC2944 /* getAllData.swift */; };
 		20615A5124A61BB600BBECC4 /* MainTapBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20615A5024A61BB600BBECC4 /* MainTapBarViewController.swift */; };
 		20B4A4E6249BAD6800B1F651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4A4E5249BAD6800B1F651 /* AppDelegate.swift */; };
 		20B4A4E8249BAD6800B1F651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B4A4E7249BAD6800B1F651 /* SceneDelegate.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		204C764C24A4B3FE0094953B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		204D1DAE24A77DBE00AC2944 /* getAllData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getAllData.swift; sourceTree = "<group>"; };
 		20615A5024A61BB600BBECC4 /* MainTapBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTapBarViewController.swift; sourceTree = "<group>"; };
 		20B4A4E2249BAD6800B1F651 /* maskStores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = maskStores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B4A4E5249BAD6800B1F651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				20B4A4FB249BC4E700B1F651 /* Stores.swift */,
+				204D1DAE24A77DBE00AC2944 /* getAllData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			files = (
 				20B4A4FC249BC4E700B1F651 /* Stores.swift in Sources */,
 				20B4A4EA249BAD6800B1F651 /* ListViewController.swift in Sources */,
+				204D1DAF24A77DBE00AC2944 /* getAllData.swift in Sources */,
 				20B4A4E6249BAD6800B1F651 /* AppDelegate.swift in Sources */,
 				20615A5124A61BB600BBECC4 /* MainTapBarViewController.swift in Sources */,
 				204C764D24A4B3FE0094953B /* SearchViewController.swift in Sources */,
