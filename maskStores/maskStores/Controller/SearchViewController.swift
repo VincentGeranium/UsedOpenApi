@@ -56,8 +56,10 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .white
     
         getAllData()
+        
         storesData = allStoresData
         
+        print("Total Data Count : \(storesData.count)")
         
         self.searchController.searchResultsUpdater = self
         self.searchResultTableView.delegate = self
