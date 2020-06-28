@@ -17,7 +17,7 @@ class MainTapBarViewController: UIViewController {
         var tab: UITabBarController = UITabBarController()
         return tab
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,13 +26,14 @@ class MainTapBarViewController: UIViewController {
     
     private func setUpTab() {
         self.view.addSubview(tab.view)
-
-        let searchTabBarItem = UITabBarItem(title: "검색", image: UIImage.init(named: "search.png"), tag: 0)
-        let listTabBarItem = UITabBarItem(title: "목록", image: UIImage.init(named: "list.png"), tag: 1)
+        
+        let listTabBarItem = UITabBarItem(title: "목록", image: UIImage.init(named: "list.png"), tag: 0)
+        
+        let searchTabBarItem = UITabBarItem(title: "검색", image: UIImage.init(named: "search.png"), tag: 1)
         
         searchNavi.tabBarItem = searchTabBarItem
         listNavi.tabBarItem  = listTabBarItem
         
-        tab.viewControllers = [searchNavi, listNavi]
+        tab.viewControllers = [listNavi, searchNavi]
     }
 }

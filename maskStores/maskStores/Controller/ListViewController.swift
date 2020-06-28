@@ -9,7 +9,7 @@
 import UIKit
 
 class ListViewController: UIViewController {
-    let tag = 1
+    let tag = 0
     
     // 현재까지 읽어온 테이터의 페이지 정보
     var page = 1
@@ -77,6 +77,7 @@ class ListViewController: UIViewController {
         setUpViewForMoreButtonAndConstraints()
         setUpMainListTableViewAndConstraints()
         setUpIndicatorAndConstraints()
+        
 //        setUpMoreButtonAndConstraints()
         
         // 셀 높이 동적으로 조절

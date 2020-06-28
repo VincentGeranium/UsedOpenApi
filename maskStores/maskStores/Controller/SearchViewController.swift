@@ -9,14 +9,14 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    let tag = 0
+    let tag = 1
     // 현재까지 읽어온 테이터의 페이지 정보
     var page = 1
     // 총 페이지 정보
     let totalPage = 55
     
     //    private var searchData =
-    lazy var storesData: [StoresDataVO] = []
+    var storesData: [StoresDataVO] = []
     lazy var filteredNameOrAddress: [StoresDataVO] = []
     
     private let searchController: UISearchController = {
@@ -54,12 +54,11 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-    
-        getAllData()
-        
-        storesData = allStoresData
-        
-        print("Total Data Count : \(storesData.count)")
+
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.storesData = getAllData()
+            print("Total Data Count : \(self.storesData.count)")
+        }
         
         self.searchController.searchResultsUpdater = self
         self.searchResultTableView.delegate = self
@@ -70,62 +69,11 @@ class SearchViewController: UIViewController {
         self.definesPresentationContext = true
         
         self.title = "검색"
-        
-//        callCorona19MasksAPI()
+    
         setUpAndConstraintsCountView()
         setUpAndConstraintsCountLabel()
         setUpAndConstraintsSearchResultTableView()
         
-    }
-    
-    // 공적 마스크 API를 호출해주는 메소드
-    private func callCorona19MasksAPI() {
-        // 1. 공적 마스크 API 호출을 위한 URI 생성
-        let url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/stores/json?page=\(self.page)&perPage=500"
-        
-        guard let apiURL: URL = URL(string: url) else {
-            print("Error: Can't get api and url")
-            return
-        }
-        
-        // 2. REST API 호출
-        let apiData = try! Data(contentsOf: apiURL)
-        
-        // 3. 데이터 전송 결과를 로그로 출력(not necessary code)
-        let log = NSString(data: apiData, encoding: String.Encoding.utf8.rawValue) ?? ""
-        NSLog("API Result = \(log)")
-        
-        // 4. JSON 객체를 파싱하여 NSDictionary 객체로 변환
-        do {
-            guard let apiDictionary = try? JSONSerialization.jsonObject(with: apiData, options: []) as? NSDictionary else {
-                return
-            }
-            // 5. 데이터 구조에 따라 차례대로 캐스팅하며 읽어오기.
-            guard let storeInfos = apiDictionary["storeInfos"] as? NSArray else {
-                return
-            }
-            
-            // 6. Iterator 처리를 하면서 API 데이터를 StoresDataVO 객체에 저장
-            for row in storeInfos {
-                // 순회 상수를 NSDictionary 타입으로 캐스팅
-                guard let r = row as? NSDictionary else {
-                    return
-                }
-                
-                // 테이블 뷰 리스트를 구성할 데이터 형식
-                var svo = StoresDataVO()
-                
-                // storeInfos 배열의 각 데이터를 storeDataVO 상수의 속성에 대입
-                svo.addr = r["addr"] as? String
-                svo.name = r["name"] as? String
-                svo.type = r["type"] as? String
-                
-                // storesDataList 배열에 추가
-                self.storesData.append(svo)
-            }
-        } catch {
-            NSLog("Parse Error")
-        }
     }
     
     private func setUpAndConstraintsCountView() {
@@ -178,8 +126,8 @@ class SearchViewController: UIViewController {
         // Return true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
-    
-    private func filterContentForSearchText(_ searchText: String, _ scope: String = "All") {
+//    , _ scope: String = "All"
+    private func filterContentForSearchText(_ searchText: String) {
         self.filteredNameOrAddress = self.storesData.filter { (storesData: StoresDataVO) -> Bool in
             guard let name = storesData.name, let addr = storesData.addr else {
                 return false
@@ -200,7 +148,7 @@ extension SearchViewController: UISearchResultsUpdating, UITableViewDelegate, UI
         }
         countLabel.text = "\(storesData.count)"
 //        return filteredNameOrAddress.count
-        return storesData.count
+        return filteredNameOrAddress.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -211,19 +159,16 @@ extension SearchViewController: UISearchResultsUpdating, UITableViewDelegate, UI
             cell.nameLabel.text = filteredNameOrAddress[indexPath.row].name
             cell.addressLabel.text = filteredNameOrAddress[indexPath.row].addr
             cell.typeLabel.text = filteredNameOrAddress[indexPath.row].convertType
-        } else {
-            cell.nameLabel.text = storesData[indexPath.row].name
-            cell.addressLabel.text = storesData[indexPath.row].addr
-            cell.typeLabel.text = storesData[indexPath.row].convertType
         }
+//        } else {
+//            cell.nameLabel.text = storesData[indexPath.row].name
+//            cell.addressLabel.text = storesData[indexPath.row].addr
+//            cell.typeLabel.text = storesData[indexPath.row].convertType
+//        }
         return cell
     }
     
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
-    
-    
-    
-    
 }

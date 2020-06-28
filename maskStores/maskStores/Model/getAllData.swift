@@ -11,10 +11,13 @@ import Foundation
 let totalPage = 55
 
 
-var allStoresData: [StoresDataVO] = []
+//var allStoresData: [StoresDataVO] = []
 
 
-func getAllData() {
+func getAllData() -> [StoresDataVO] {
+    
+    var allStoresData: [StoresDataVO] = []
+    
     // 1. 공적 마스크 API 호출을 위한 URI 생성
     var getAllDataURL: String = ""
     
@@ -63,4 +66,5 @@ func getAllData() {
             print("Error: Can't get api and url")
         }
     }
+    return allStoresData
 }
