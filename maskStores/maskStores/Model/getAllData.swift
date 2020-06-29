@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 let totalPage = 55
 
@@ -14,7 +15,7 @@ let totalPage = 55
 //var allStoresData: [StoresDataVO] = []
 
 
-func getAllData() -> [StoresDataVO] {
+func getAllData(_ indicator: UIActivityIndicatorView) -> [StoresDataVO] {
     
     var allStoresData: [StoresDataVO] = []
     
@@ -65,6 +66,9 @@ func getAllData() -> [StoresDataVO] {
         } else {
             print("Error: Can't get api and url")
         }
+    }
+    DispatchQueue.main.async {
+        indicator.stopAnimating()
     }
     return allStoresData
 }

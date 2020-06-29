@@ -50,15 +50,26 @@ class SearchViewController: UIViewController {
         return tableView
     }()
     
+    let indicatorView: UIActivityIndicatorView = {
+        var indicatorView = UIActivityIndicatorView()
+        indicatorView.hidesWhenStopped = true
+        indicatorView.style = .large
+        indicatorView.backgroundColor = UIColor(red: 0.667, green: 0.667, blue: 0.667, alpha: 0.8)
+        return indicatorView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        indicatorView.startAnimating()
 
         DispatchQueue.global(qos: .userInteractive).async {
-            self.storesData = getAllData()
+            self.storesData = getAllData(self.indicatorView)
             print("Total Data Count : \(self.storesData.count)")
         }
+        
+        
         
         self.searchController.searchResultsUpdater = self
         self.searchResultTableView.delegate = self
@@ -73,6 +84,7 @@ class SearchViewController: UIViewController {
         setUpAndConstraintsCountView()
         setUpAndConstraintsCountLabel()
         setUpAndConstraintsSearchResultTableView()
+        setUpAndConstraintsIndicatorView()
         
     }
     
@@ -120,13 +132,28 @@ class SearchViewController: UIViewController {
         ])
     }
     
+    private func setUpAndConstraintsIndicatorView() {
+        let guide = self.searchResultTableView.safeAreaLayoutGuide
+        
+        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.searchResultTableView.addSubview(indicatorView)
+        
+        NSLayoutConstraint.activate([
+            indicatorView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+            indicatorView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+            indicatorView.widthAnchor.constraint(equalToConstant: 100),
+            indicatorView.heightAnchor.constraint(equalToConstant: 70),
+        ])
+    }
+    
     
     
     private func searchBarIsEmpty() -> Bool {
         // Return true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
-//    , _ scope: String = "All"
+
     private func filterContentForSearchText(_ searchText: String) {
         self.filteredNameOrAddress = self.storesData.filter { (storesData: StoresDataVO) -> Bool in
             guard let name = storesData.name, let addr = storesData.addr else {
@@ -143,11 +170,9 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.searchController.isActive {
-            countLabel.text = "\(filteredNameOrAddress.count)"
+            countLabel.text = "\(self.filteredNameOrAddress.count)"
             return filteredNameOrAddress.count
         }
-        countLabel.text = "\(storesData.count)"
-//        return filteredNameOrAddress.count
         return filteredNameOrAddress.count
     }
     

@@ -122,8 +122,8 @@
 		20FA85AB24A649F900EEDDA8 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				20FA85A924A62D1300EEDDA8 /* ResultTableViewCell.swift */,
 				20B4A4F9249BAEDE00B1F651 /* ListTableViewCell.swift */,
+				20FA85A924A62D1300EEDDA8 /* ResultTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";

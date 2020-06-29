@@ -32,39 +32,15 @@ class ListViewController: UIViewController {
         return tableView
     }()
     
-    private let viewForMoreButton: UIView = {
-        var viewForBtn: UIView = UIView()
-        viewForBtn.backgroundColor = .systemOrange
-        return viewForBtn
-    }()
-    
-    private let activityIndicators: UIActivityIndicatorView = {
-        var indicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
-        indicatorView.style = UIActivityIndicatorView.Style.medium
-        indicatorView.hidesWhenStopped = false
-        return indicatorView
-    }()
-    
-//    lazy var moreButton: UIButton = {
-//        var moreButton: UIButton = UIButton()
-//        moreButton.setTitle("더보기", for: .normal)
-//        moreButton.addTarget(self,
-//                             action: #selector(touchUpMoreButton(_:)),
-//                             for: .touchUpInside)
-//        return moreButton
+//    private let indicatorView: UIActivityIndicatorView = {
+//        var indicatorView = UIActivityIndicatorView()
+//        indicatorView.hidesWhenStopped = true
+//        indicatorView.style = .large
+//        indicatorView.backgroundColor = UIColor(red: 0.667, green: 0.667, blue: 0.667, alpha: 0.8)
+//
+//        return indicatorView
 //    }()
-//
-//    @objc private func touchUpMoreButton(_ sender: UIButton) {
-//        // 현재 패이지 값에 1을 추가
-//        self.page += 1
-//
-//        // 공적 마스크 API를 호출하는 메소드.
-//        callCorona19MasksAPI()
-//
-//        // 데이터를 다시 읽어오도록 테이블 뷰를 갱신.
-//        self.mainListTableView.reloadData()
-//    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -74,21 +50,17 @@ class ListViewController: UIViewController {
         listTableView.delegate = self
         listTableView.dataSource = self
         
-        setUpViewForMoreButtonAndConstraints()
         setUpMainListTableViewAndConstraints()
-        setUpIndicatorAndConstraints()
-        
-//        setUpMoreButtonAndConstraints()
         
         // 셀 높이 동적으로 조절
 //        self.mainListTableView.rowHeight = UITableView.automaticDimension
         
         // 공적 마스크 API를 호출해주는 메소드
-        callCorona19MasksAPI()
+        getStoresData()
     }
     
     // 공적 마스크 API를 호출해주는 메소드
-    private func callCorona19MasksAPI() {
+    private func getStoresData() {
         // 1. 공적 마스크 API 호출을 위한 URI 생성
         let url = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/stores/json?page=\(self.page)&perPage=500"
         
@@ -137,34 +109,6 @@ class ListViewController: UIViewController {
         }
     }
     
-    private func setUpViewForMoreButtonAndConstraints() {
-        let guide = self.view.safeAreaLayoutGuide
-        
-        viewForMoreButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.view.addSubview(viewForMoreButton)
-        
-        NSLayoutConstraint.activate([
-            viewForMoreButton.heightAnchor.constraint(equalToConstant: 50),
-            viewForMoreButton.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            viewForMoreButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            viewForMoreButton.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
-        ])
-      }
-    
-    private func setUpIndicatorAndConstraints() {
-        let guide = self.viewForMoreButton.safeAreaLayoutGuide
-        
-        activityIndicators.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.viewForMoreButton.addSubview(activityIndicators)
-        
-        NSLayoutConstraint.activate([
-            activityIndicators.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
-            activityIndicators.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
-        ])
-    }
-    
     private func setUpMainListTableViewAndConstraints() {
         let guide = self.view.safeAreaLayoutGuide
         
@@ -176,24 +120,24 @@ class ListViewController: UIViewController {
             listTableView.topAnchor.constraint(equalTo: guide.topAnchor),
             listTableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             listTableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            listTableView.bottomAnchor.constraint(equalTo: viewForMoreButton.topAnchor),
+            listTableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
         ])
     }
     
-//    private func setUpMoreButtonAndConstraints() {
-//        let guide = self.viewForMoreButton.safeAreaLayoutGuide
+//    private func setUpAndConstraintsIndicatorView() {
+//        let guide = self.listTableView.safeAreaLayoutGuide
 //
-//        moreButton.translatesAutoresizingMaskIntoConstraints = false
+//        indicatorView.translatesAutoresizingMaskIntoConstraints = false
 //
-//        self.viewForMoreButton.addSubview(moreButton)
+//        self.listTableView.addSubview(indicatorView)
 //
 //        NSLayoutConstraint.activate([
-//            moreButton.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
-//            moreButton.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+//            indicatorView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+//            indicatorView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+//            indicatorView.widthAnchor.constraint(equalToConstant: 100),
+//            indicatorView.heightAnchor.constraint(equalToConstant: 70),
 //        ])
 //    }
-
-    
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -225,13 +169,14 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
         if indexPath.row == storesDataList.count - 1 {
             if self.page < totalPage {
                 self.page += 1
                 
-                callCorona19MasksAPI()
+                getStoresData()
                 print("callCorona19MasksAPI")
                 
                 print(self.page)
@@ -243,6 +188,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     @objc func loadData() {
         listTableView.reloadData()
     }
+
     
 }
 
