@@ -24,7 +24,7 @@ class SearchViewController: UIViewController {
         // 기본적으로 UISearchController는 표시된 뷰를 흐리게(obscure)만든다, true와 default는 흐리게, false는 흐리지 않게.
         searchController.obscuresBackgroundDuringPresentation = false
         //        searchController.searchBar.backgroundColor = .systemPink
-        searchController.searchBar.placeholder = "이름 혹은 주소를 입력하세요."
+        searchController.searchBar.placeholder = "지역, 이름 혹은 주소를 입력하세요."
         
         return searchController
     }()
@@ -50,7 +50,7 @@ class SearchViewController: UIViewController {
         return tableView
     }()
     
-    let indicatorView: UIActivityIndicatorView = {
+    private let indicatorView: UIActivityIndicatorView = {
         var indicatorView = UIActivityIndicatorView()
         indicatorView.hidesWhenStopped = true
         indicatorView.style = .large
@@ -63,7 +63,7 @@ class SearchViewController: UIViewController {
         
         view.backgroundColor = .white
         indicatorView.startAnimating()
-
+        
         DispatchQueue.global(qos: .userInteractive).async {
             self.storesData = getAllData(self.indicatorView)
             print("Total Data Count : \(self.storesData.count)")
@@ -84,7 +84,7 @@ class SearchViewController: UIViewController {
         setUpAndConstraintsCountView()
         setUpAndConstraintsCountLabel()
         setUpAndConstraintsSearchResultTableView()
-        setUpAndConstraintsIndicatorView()
+//        setUpAndConstraintsIndicatorView()
         
     }
     
@@ -132,20 +132,20 @@ class SearchViewController: UIViewController {
         ])
     }
     
-    private func setUpAndConstraintsIndicatorView() {
-        let guide = self.searchResultTableView.safeAreaLayoutGuide
-        
-        indicatorView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.searchResultTableView.addSubview(indicatorView)
-        
-        NSLayoutConstraint.activate([
-            indicatorView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
-            indicatorView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
-            indicatorView.widthAnchor.constraint(equalToConstant: 100),
-            indicatorView.heightAnchor.constraint(equalToConstant: 70),
-        ])
-    }
+//    private func setUpAndConstraintsIndicatorView() {
+//        let guide = self.searchResultTableView.safeAreaLayoutGuide
+//        
+//        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        self.searchResultTableView.addSubview(indicatorView)
+//        
+//        NSLayoutConstraint.activate([
+//            indicatorView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+//            indicatorView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+//            indicatorView.widthAnchor.constraint(equalToConstant: 100),
+//            indicatorView.heightAnchor.constraint(equalToConstant: 70),
+//        ])
+//    }
     
     
     
@@ -195,5 +195,9 @@ extension SearchViewController: UISearchResultsUpdating, UITableViewDelegate, UI
     
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }

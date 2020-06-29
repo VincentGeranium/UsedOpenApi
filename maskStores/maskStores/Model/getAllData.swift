@@ -67,6 +67,7 @@ func getAllData(_ indicator: UIActivityIndicatorView) -> [StoresDataVO] {
             print("Error: Can't get api and url")
         }
     }
+    
     DispatchQueue.main.async {
         indicator.stopAnimating()
     }
