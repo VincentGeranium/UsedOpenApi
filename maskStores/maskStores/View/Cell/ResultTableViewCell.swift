@@ -14,6 +14,11 @@ class ResultTableViewCell: UITableViewCell {
     
     lazy var nameLabel: UILabel = {
         var name: UILabel = UILabel()
+        // 테두리 만들기
+        name.layer.borderColor = UIColor.black.cgColor
+        // 테두리 굵기 설정
+        name.layer.borderWidth = 1.0
+        name.font = UIFont.systemFont(ofSize: 17)
         name.backgroundColor = .systemOrange
         name.font = UIFont.systemFont(ofSize: 17)
         
@@ -22,6 +27,9 @@ class ResultTableViewCell: UITableViewCell {
     
     lazy var typeLabel: UILabel = {
         var type: UILabel = UILabel()
+        type.layer.borderColor = UIColor.black.cgColor
+        type.layer.borderWidth = 1.0
+        type.textAlignment = .center
         type.backgroundColor = .systemGray
         type.font = UIFont.systemFont(ofSize: 17)
         
@@ -30,6 +38,8 @@ class ResultTableViewCell: UITableViewCell {
     
     lazy var addressLabel: UILabel = {
         var address: UILabel = UILabel()
+        address.layer.borderColor = UIColor.black.cgColor
+        address.layer.borderWidth = 1.0
         address.backgroundColor = .systemBlue
         address.font = UIFont.systemFont(ofSize: 17)
         
@@ -39,7 +49,7 @@ class ResultTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.accessoryType = .disclosureIndicator
+//        self.accessoryType = .disclosureIndicator
         
         setUpNameLabelAndConstraint()
         setUpTypeLabelAndConstraints()

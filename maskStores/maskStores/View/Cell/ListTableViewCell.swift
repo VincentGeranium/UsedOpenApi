@@ -14,14 +14,21 @@ class ListTableViewCell: UITableViewCell {
     
     lazy var nameLabel: UILabel = {
         var name: UILabel = UILabel()
-        name.backgroundColor = .systemOrange
+        // 테두리 만들기
+        name.layer.borderColor = UIColor.black.cgColor
+        // 테두리 굵기 설정
+        name.layer.borderWidth = 1.0
         name.font = UIFont.systemFont(ofSize: 17)
-        
+        name.backgroundColor = .systemOrange
+        name.textAlignment = .center
         return name
     }()
     
     lazy var typeLabel: UILabel = {
         var type: UILabel = UILabel()
+        type.layer.borderColor = UIColor.black.cgColor
+        type.layer.borderWidth = 1.0
+        type.textAlignment = .center
         type.backgroundColor = .systemGray
         type.font = UIFont.systemFont(ofSize: 17)
         
@@ -30,6 +37,8 @@ class ListTableViewCell: UITableViewCell {
     
     lazy var addressLabel: UILabel = {
         var address: UILabel = UILabel()
+        address.layer.borderColor = UIColor.black.cgColor
+        address.layer.borderWidth = 1.0
         address.backgroundColor = .systemBlue
         address.font = UIFont.systemFont(ofSize: 17)
         

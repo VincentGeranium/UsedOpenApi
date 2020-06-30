@@ -29,14 +29,15 @@ class SearchViewController: UIViewController {
         return searchController
     }()
     
-    private let countView: UIView = {
+    private let viewForCount: UIView = {
         var countView: UIView = UIView()
-        countView.backgroundColor = .black
+        countView.backgroundColor = .systemPink
         return countView
     }()
     
     private let countLabel: UILabel = {
         var countLabel: UILabel = UILabel()
+        countLabel.textAlignment = .center
         countLabel.textColor = .white
         return countLabel
     }()
@@ -84,36 +85,38 @@ class SearchViewController: UIViewController {
         setUpAndConstraintsCountView()
         setUpAndConstraintsCountLabel()
         setUpAndConstraintsSearchResultTableView()
-//        setUpAndConstraintsIndicatorView()
+        setUpAndConstraintsIndicatorView()
         
     }
     
     private func setUpAndConstraintsCountView() {
         let guide = self.view.safeAreaLayoutGuide
         
-        countView.translatesAutoresizingMaskIntoConstraints = false
+        viewForCount.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(countView)
+        self.view.addSubview(viewForCount)
         
         NSLayoutConstraint.activate([
-            countView.topAnchor.constraint(equalTo: guide.topAnchor),
-            countView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            countView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            countView.heightAnchor.constraint(equalToConstant: 50),
+            viewForCount.topAnchor.constraint(equalTo: guide.topAnchor),
+            viewForCount.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            viewForCount.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            viewForCount.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     
     private func setUpAndConstraintsCountLabel() {
-        let guide = self.countView.safeAreaLayoutGuide
+        let guide = self.viewForCount.safeAreaLayoutGuide
         
         countLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.countView.addSubview(countLabel)
+        self.viewForCount.addSubview(countLabel)
         
         NSLayoutConstraint.activate([
-            countLabel.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
-            countLabel.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
-            countLabel.widthAnchor.constraint(equalToConstant: 70),
+            countLabel.topAnchor.constraint(equalTo: guide.topAnchor),
+            countLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            countLabel.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            countLabel.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+//            countLabel.widthAnchor.constraint(equalToConstant: 70),
         ])
     }
     
@@ -125,27 +128,27 @@ class SearchViewController: UIViewController {
         self.view.addSubview(searchResultTableView)
         
         NSLayoutConstraint.activate([
-            searchResultTableView.topAnchor.constraint(equalTo: countView.bottomAnchor),
+            searchResultTableView.topAnchor.constraint(equalTo: viewForCount.bottomAnchor),
             searchResultTableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             searchResultTableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             searchResultTableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
         ])
     }
     
-//    private func setUpAndConstraintsIndicatorView() {
-//        let guide = self.searchResultTableView.safeAreaLayoutGuide
-//        
-//        indicatorView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        self.searchResultTableView.addSubview(indicatorView)
-//        
-//        NSLayoutConstraint.activate([
-//            indicatorView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
-//            indicatorView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
-//            indicatorView.widthAnchor.constraint(equalToConstant: 100),
-//            indicatorView.heightAnchor.constraint(equalToConstant: 70),
-//        ])
-//    }
+    private func setUpAndConstraintsIndicatorView() {
+        let guide = self.searchResultTableView.safeAreaLayoutGuide
+        
+        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.searchResultTableView.addSubview(indicatorView)
+        
+        NSLayoutConstraint.activate([
+            indicatorView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+            indicatorView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+            indicatorView.widthAnchor.constraint(equalToConstant: 100),
+            indicatorView.heightAnchor.constraint(equalToConstant: 70),
+        ])
+    }
     
     
     
@@ -170,7 +173,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.searchController.isActive {
-            countLabel.text = "\(self.filteredNameOrAddress.count)"
+            countLabel.text = "검색 결과 : \(self.filteredNameOrAddress.count) 개"
             return filteredNameOrAddress.count
         }
         return filteredNameOrAddress.count
