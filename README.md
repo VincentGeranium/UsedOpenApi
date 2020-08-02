@@ -16,3 +16,16 @@
 - 네트워크 객체를 통한 데이터 요청 기능 구현 및 학습.
 - 전달받은 데이터를 파싱하여 화면에 출력 구현 및 학습.
 - 추가 데이터를 다시 요청하는 방식인 페이징(Paging)처리 구현 및 학습.
+
+- - -
+공공 데이터 포털에서 제공하는 Open API 중 "좌표(위/경도) 기준 공적 마스크 판매정보 제공 서비스 API"를 사용하여 공적 마스크를 판매하는 곳의 판매처명, 판매처 유형, 판매처 주소를 보여주는 앱 입니다.
+
+- 기간 : 2020.06.19 ~ 2020.06.30
+- 역활 : 앱 전체 구현
+- 사용기술 : Swift, Foundation, JSONSerialization, UIKit
+- 프로젝트 인원 : 1명
+- [공적 마스크 앱](https://github.com/VincentGeranium/UsedOpenApi)
+
+| 목록 | 검색 |
+|:---:|:---:|
+<img width="200" alt="mask-1" src="https://github.com/VincentGeranium/Resume/blob/master/IMAGE/mask-1.png?raw=true">|<img width="200" alt="mask-3" src="https://github.com/VincentGeranium/Resume/blob/master/IMAGE/mask-3.png?raw=true">
