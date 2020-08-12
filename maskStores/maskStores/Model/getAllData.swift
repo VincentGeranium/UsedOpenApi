@@ -28,7 +28,7 @@ func getAllData(_ indicator: UIActivityIndicatorView) -> [StoresDataVO] {
         if let apiURL: URL = URL(string: getAllDataURL) {
             
             //                return
-            // 2. REST API 호출
+            // 2. GET방식으로 API 호출
             let apiData = try! Data(contentsOf: apiURL)
             
             // 3. 데이터 전송 결과를 로그로 출력(not necessary code)
